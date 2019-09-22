@@ -1,0 +1,28 @@
+{
+  "name": "wifiscanner_server",
+  "version": "0.0.1",
+  "main": "./src/server.js",
+  "scripts": {
+    "prod": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svmuchin/wifiscanner_server.git"
+  },
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/svmuchin/wifiscanner_server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^6.4.2",
+    "pg-hstore": "^2.3.3",
+    "pug": "^2.0.4",
+    "sequelize": "^5.19.0",
+    "validator": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
