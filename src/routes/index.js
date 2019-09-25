@@ -1,10 +1,7 @@
-const db = require('../db/connection')
+const main = require('./main')
+const signUp = require('./sign-up')
 
-module.exports = (req, res, next) => {
-    db
-        .authenticate()
-        .then(() => {
-            res.render('index', {title: 'Сберлокатор', message: 'Подключение к базе успешно'})
-        })
-        .catch(next)
+module.exports = {
+    main,
+    signUp
 }

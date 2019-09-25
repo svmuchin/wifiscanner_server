@@ -11,4 +11,4 @@ RUN npm install
 COPY src /server
 
 EXPOSE $PORT
-CMD [ "nodemon" ]
+CMD [ "nodemon",  "--inspect=0.0.0.0:${DEBUG_PORT}" ]

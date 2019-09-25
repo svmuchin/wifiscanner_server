@@ -8,20 +8,25 @@ services:
     environment:
       - HTTP_PORT=${SERVER_HTTP_PORT}
       - HTTPS_PORT=${SERVER_HTTPS_PORT}
+      - DEBUG_PORT=${SERVER_DEBUG_PORT}
       - DB_HOST=db
       - DB_PORT=${DB_INTERNAL_PORT}
       - DB_NAME
       - DB_USER
       - DB_PASSWORD
+      - JWT_SECRET
+      - ADMIN_EMAIL
+      - ADMIN_DEFAULT_PASSWORD
     ports:
       - "${SERVER_HTTP_PORT}:${SERVER_HTTP_PORT}"
       - "${SERVER_HTTPS_PORT}:${SERVER_HTTPS_PORT}"
+      - "${SERVER_DEBUG_PORT}:${SERVER_DEBUG_PORT}"
     depends_on:
       - db
   db:
     image: postgres
     volumes:
-      - data-volume:/var/lib/postgresql/data
+      - db-volume:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -29,4 +34,4 @@ services:
     ports:
       - "${DB_EXTERNAL_PORT}:${DB_INTERNAL_PORT}"
 volumes:
-  data-volume:
+  db-volume:
