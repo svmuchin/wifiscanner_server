@@ -5,8 +5,8 @@ const https = require('https')
 const fs = require('fs')
 const createError = require('http-errors')
 
-const { main, signUp } = require('./routes')
-const { auth, isAdmin, isAnonymous } = require('./filters')
+const { main, signUp, sendReport } = require('./routes')
+const { auth, isAdmin, isUser, isAnonymous } = require('./filters')
 const { onStart } = require('./hooks')
 
 const httpPort = process.env.HTTP_PORT
@@ -25,6 +25,7 @@ app.use(auth)
 
 app.get('/', isAdmin, main)
 app.post('/sign-up', isAnonymous, signUp)
+app.post('/send-report', isUser, sendReport)
 
 app.use((req, res, next) => {
     next(createError(404))

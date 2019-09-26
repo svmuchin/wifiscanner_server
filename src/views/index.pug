@@ -2,4 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Привет, #{userName}
+  p Привет, #{user.name}
+  ul
+    each report in reports
+      li !{JSON.stringify(report.data)}

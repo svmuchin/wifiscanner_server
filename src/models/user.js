@@ -3,6 +3,8 @@ const db = require('../db')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const Report = require('./report')
+
 const generateHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync())
 const getToken = (email) => jwt.sign({email}, process.env.JWT_SECRET)
 
@@ -59,5 +61,8 @@ User.init({
     sequelize: db,
     modelName: 'user'
 });
+
+User.hasMany(Report, { as: 'reports', foreignKey: 'userId' })
+Report.belongsTo(User, { as: 'user', foreignKey: 'userId' })
 
 module.exports = User
