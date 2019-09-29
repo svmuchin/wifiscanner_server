@@ -8,6 +8,9 @@
   },
   "license": "UNLICENSED",
   "homepage": "https://github.com/svmuchin/wifiscanner_server#readme",
+  "scripts": {
+    "build": "exit 0"
+  },
   "dependencies": {
     "ajv": "^6.10.2",
     "bcryptjs": "^2.4.3",

@@ -3,12 +3,9 @@ services:
   server:
     restart: always
     build: .
-    volumes:
-      - .:/server
     environment:
       - HTTP_PORT=${SERVER_HTTP_PORT}
       - HTTPS_PORT=${SERVER_HTTPS_PORT}
-      - DEBUG_PORT=${SERVER_DEBUG_PORT}
       - DB_HOST=db
       - DB_PORT=${DB_INTERNAL_PORT}
       - DB_NAME
@@ -17,10 +14,13 @@ services:
       - JWT_SECRET
       - ADMIN_EMAIL
       - ADMIN_DEFAULT_PASSWORD
+    expose:
+      - ${SERVER_HTTP_PORT}
+      - ${SERVER_HTTPS_PORT}
     ports:
       - "${SERVER_HTTP_PORT}:${SERVER_HTTP_PORT}"
       - "${SERVER_HTTPS_PORT}:${SERVER_HTTPS_PORT}"
-      - "${SERVER_DEBUG_PORT}:${SERVER_DEBUG_PORT}"
+    command: node server.js
     depends_on:
       - db
   db:

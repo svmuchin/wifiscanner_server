@@ -1,9 +1,26 @@
 # WiFiScanner Server
 
+## Требуется
+
+### Production
+
+**docker** и **docker-compose**
+
+### Development
+
+\+ **node** и **npm**
+
 ## Запуск
 
-Необходимо установить **docker** и **docker-compose**. После чего:
+### Production
 
 ```bash
 docker-compose up
+```
+
+### Development
+
+```bash
+npm install
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```

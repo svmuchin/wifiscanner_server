@@ -1,14 +1,18 @@
-FROM node:carbon
-
+FROM node:carbon AS base
 WORKDIR /server
 
-RUN npm install -g nodemon
-
+FROM base AS dependencies
 COPY package*.json ./
-
 RUN npm install
 
+FROM dependencies AS build
+WORKDIR /server
 COPY src /server
+RUN npm run build
 
-EXPOSE $PORT
-CMD [ "nodemon",  "--inspect=0.0.0.0:${DEBUG_PORT}" ]
+FROM node:alpine AS release
+WORKDIR /server
+
+COPY --from=dependencies /server/package.json ./
+RUN npm install --only=production
+COPY --from=build /server ./
