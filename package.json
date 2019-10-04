@@ -9,7 +9,7 @@
   "license": "UNLICENSED",
   "homepage": "https://github.com/svmuchin/wifiscanner_server#readme",
   "scripts": {
-    "build": "exit 0"
+    "build": "mkdir ./build && touch ./build/index.js"
   },
   "dependencies": {
     "ajv": "^6.10.2",

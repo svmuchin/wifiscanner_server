@@ -3,10 +3,13 @@ services:
   server:
     volumes:
       - .:/server
+    build:
+      args:
+        - DEVELOPMENT=true
     environment:
       - DEVELOPMENT=true
     expose:
       - ${SERVER_DEBUG_PORT}
     ports:
       - "${SERVER_DEBUG_PORT}:${SERVER_DEBUG_PORT}"
-    command: node_modules/.bin/nodemon --inspect=0.0.0.0:${SERVER_DEBUG_PORT}
+    command: ./node_modules/.bin/nodemon --inspect=0.0.0.0:${SERVER_DEBUG_PORT}

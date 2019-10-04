@@ -12,7 +12,12 @@ RUN npm run build
 
 FROM node:alpine AS release
 WORKDIR /server
+ARG DEVELOPMENT
 
 COPY --from=dependencies /server/package.json ./
-RUN npm install --only=production
+RUN if [ $DEVELOPMENT ]; \
+        then npm install; \
+        else npm install --only=production; \
+    fi
 COPY --from=build /server ./
+#RUN ls -1
