@@ -4,7 +4,7 @@ services:
     restart: always
     build: .
     volumes:
-      - ./src:/server/src
+      - ./server:/server/server
     environment:
       - PORT=${SERVER_PORT}
       - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db:${DB_INTERNAL_PORT}/${DB_NAME}
@@ -21,6 +21,22 @@ services:
     command: node_modules/.bin/nodemon --inspect=0.0.0.0:${SERVER_DEBUG_PORT}
     depends_on:
       - db
+  client:
+    restart: always
+    build: ./client
+    volumes:
+      - ./client/src:/client/src
+    environment:
+      - PORT=${CLIENT_PORT}
+      - REACT_APP_ENDPOINT=localhost:${SERVER_PORT}
+      - NODE_ENV=development
+    expose:
+      - ${CLIENT_PORT}
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+    command: npm run start
+    depends_on:
+      - server
   db:
     image: postgres
     volumes:

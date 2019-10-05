@@ -1,9 +1,9 @@
-const main = require('./main')
+const list = require('./list')
 const signUp = require('./sign-up')
 const sendReport = require('./send-report')
 
 module.exports = {
-    main,
+    list,
     signUp,
     sendReport
 }

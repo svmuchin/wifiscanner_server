@@ -1,7 +1,7 @@
 {
   "name": "wifiscanner_server",
-  "version": "0.0.1",
-  "main": "./src/server.js",
+  "version": "0.0.2",
+  "main": "./server/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/svmuchin/wifiscanner_server.git"
@@ -10,12 +10,16 @@
   "homepage": "https://github.com/svmuchin/wifiscanner_server#readme",
   "scripts": {
     "dev": "docker-compose up",
-    "build": "exit 0",
-    "start": "node ./src/server.js"
+    "build": "cd client && npm install && npm run build",
+    "start": "node ./server/index.js"
   },
   "engines": {
     "node": "10.x"
   },
+  "cacheDirectories": [
+    "client/node_modules",
+    "server/node_modules"
+  ],
   "dependencies": {
     "ajv": "^6.10.2",
     "bcryptjs": "^2.4.3",
@@ -24,7 +28,6 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^6.4.2",
     "pg-hstore": "^2.3.3",
-    "pug": "^2.0.4",
     "sequelize": "^5.19.0"
   },
   "devDependencies": {

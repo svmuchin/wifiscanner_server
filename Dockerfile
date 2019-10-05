@@ -1,5 +1,4 @@
 FROM node:carbon
 WORKDIR /server
-COPY package*.json ./
+COPY ["package.json", "package-lock.json", "server", "./"]
 RUN npm install
-COPY src ./src
