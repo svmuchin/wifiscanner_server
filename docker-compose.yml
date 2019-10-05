@@ -3,24 +3,22 @@ services:
   server:
     restart: always
     build: .
+    volumes:
+      - ./src:/server/src
     environment:
-      - HTTP_PORT=${SERVER_HTTP_PORT}
-      - HTTPS_PORT=${SERVER_HTTPS_PORT}
-      - DB_HOST=db
-      - DB_PORT=${DB_INTERNAL_PORT}
-      - DB_NAME
-      - DB_USER
-      - DB_PASSWORD
+      - PORT=${SERVER_PORT}
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db:${DB_INTERNAL_PORT}/${DB_NAME}
       - JWT_SECRET
       - ADMIN_EMAIL
       - ADMIN_DEFAULT_PASSWORD
+      - NODE_ENV=development
     expose:
-      - ${SERVER_HTTP_PORT}
-      - ${SERVER_HTTPS_PORT}
+      - ${SERVER_PORT}
+      - ${SERVER_DEBUG_PORT}
     ports:
-      - "${SERVER_HTTP_PORT}:${SERVER_HTTP_PORT}"
-      - "${SERVER_HTTPS_PORT}:${SERVER_HTTPS_PORT}"
-    command: node server.js
+      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "${SERVER_DEBUG_PORT}:${SERVER_DEBUG_PORT}"
+    command: node_modules/.bin/nodemon --inspect=0.0.0.0:${SERVER_DEBUG_PORT}
     depends_on:
       - db
   db:

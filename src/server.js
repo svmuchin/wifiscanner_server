@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const http = require('http')
-const https = require('https')
 const fs = require('fs')
 const createError = require('http-errors')
 
@@ -9,8 +8,7 @@ const { main, signUp, sendReport } = require('./routes')
 const { auth, isAdmin, isUser, isAnonymous } = require('./filters')
 const { onStart } = require('./hooks')
 
-const httpPort = process.env.HTTP_PORT
-const httpsPort = process.env.HTTPS_PORT
+const port = process.env.PORT || 80
 
 const app = express()
 
@@ -33,25 +31,16 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     res.locals.message = err.message
-    res.locals.error = req.app.get('env') === 'development' ? err : {}
+    res.locals.error = process.env.NODE_ENV === 'development' ? err : {}
 
     res.status(err.status || 500)
     res.render('error')
 })
 
-https.createServer({
-    key: fs.readFileSync(path.join(__dirname, './ssl/key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, './ssl/cert.pem')),
-    passphrase: 'wifiscanner'
-}, app).listen(httpsPort, async (error) => {
+http.createServer(app).listen(port, async (error) => {
     if (error) {
         return console.log('Server did not start', error)
     }
-    console.log(`Server running on port ${httpsPort}`)
+    console.log(`Server running on port ${port}`)
     onStart()
 })
-
-http.createServer((req, res) => {
-    res.writeHead(301, {'Location': `https://${req.headers['host']}${req.url}`});
-    res.end();
-}).listen(httpPort)

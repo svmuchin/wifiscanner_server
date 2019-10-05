@@ -9,7 +9,12 @@
   "license": "UNLICENSED",
   "homepage": "https://github.com/svmuchin/wifiscanner_server#readme",
   "scripts": {
-    "build": "exit 0"
+    "dev": "docker-compose up",
+    "build": "exit 0",
+    "start": "node ./src/server.js"
+  },
+  "engines": {
+    "node": "10.x"
   },
   "dependencies": {
     "ajv": "^6.10.2",
