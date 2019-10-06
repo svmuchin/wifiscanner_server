@@ -4,7 +4,7 @@ const fs = require('fs')
 const createError = require('http-errors')
 
 const { list, signUp, sendReport } = require('./routes')
-const { auth, isAdmin, isUser, isAnonymous } = require('./filters')
+const { https, auth, isAdmin, isUser, isAnonymous } = require('./filters')
 const { onStart } = require('./hooks')
 
 const port = process.env.PORT || 80
@@ -13,6 +13,7 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(https)
 app.use(express.static(path.join(__dirname, '../client/build')))
 
 app.use(auth)
