@@ -1,26 +1,27 @@
-# WiFiScanner Server
+# Wi-Fi Scanner Server
 
-## Требуется
+## Production
 
-### Production
+Установить **terraform** и зарегистрировать аккаунт Heroku.
 
-**docker** и **docker-compose**
+Данные аккаунта помещаются в файл *.netrc* вида:
 
-### Development
+```
+machine api.heroku.com
+    login <email>
+    password <api-key>
+```
 
-\+ **node** и **npm**
+Накат инфраструктуры:
 
-## Запуск
+```bash
+terraform apply
+```
 
-### Production
+## Development
+
+Установить **docker-compose** и выполнить
 
 ```bash
 docker-compose up
-```
-
-### Development
-
-```bash
-npm install
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```

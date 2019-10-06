@@ -10,6 +10,7 @@
   "homepage": "https://github.com/svmuchin/wifiscanner_server#readme",
   "scripts": {
     "dev": "docker-compose up",
+    "prod": "terraform apply",
     "build": "cd client && npm install && npm run build",
     "start": "node ./server/index.js"
   },
