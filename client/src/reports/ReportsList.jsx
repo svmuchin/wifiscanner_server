@@ -7,7 +7,7 @@ export const ReportsList = (props) => (
             <TextField source="id"/>
             <TextField source="data.device.ip" />
             <TextField source="data.device.mac" />
-            <DateField source="createdAt" />
+            <DateField source="createdAt" showTime />
             <ReferenceField source="userId" reference="users">
                 <TextField source="name" />
             </ReferenceField>
