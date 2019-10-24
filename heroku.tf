@@ -2,6 +2,7 @@ provider "heroku" {
   version = "~> 2.0"
 }
 
+variable "port" {}
 variable "app_name" {}
 variable "jwt_secret" {}
 variable "admin_email" {}
@@ -10,6 +11,8 @@ variable "admin_default_passport" {}
 resource "heroku_config" "env" {
   vars = {
     NPM_CONFIG_PRODUCTION = true
+    REACT_APP_ENDPOINT = "https://${heroku_app.server.name}.herokuapp.com"
+    PORT = "${var.port}"
     JWT_SECRET = "${var.jwt_secret}"
     ADMIN_EMAIL = "${var.admin_email}"
     ADMIN_DEFAULT_PASSWORD = "${var.admin_default_passport}"
@@ -32,7 +35,7 @@ resource "heroku_addon" "database" {
   plan = "heroku-postgresql:hobby-dev"
 }
 
-resource "heroku_build" "default" {
+resource "heroku_build" "defaut" {
   app = "${heroku_app.server.name}"
   buildpacks = ["https://github.com/heroku/heroku-buildpack-nodejs"]
 
@@ -46,7 +49,7 @@ resource "heroku_formation" "default" {
   type = "web"
   quantity = 1
   size = "free"
-  depends_on = ["heroku_build.default"]
+  depends_on = ["heroku_build.defaut"]
 }
 
 output "app_url" {

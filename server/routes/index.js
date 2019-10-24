@@ -1,9 +1,11 @@
-const list = require('./list')
-const signUp = require('./sign-up')
-const sendReport = require('./send-report')
+const { reportsGet, reportsCreate } = require('./reports')
+const { usersGet, usersCreate } = require('./users')
+const signIn = require('./sign-in')
 
 module.exports = {
-    list,
-    signUp,
-    sendReport
+    signIn,
+    reportsGet,
+    reportsCreate,
+    usersCreate,
+    usersGet
 }

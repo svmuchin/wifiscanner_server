@@ -6,13 +6,19 @@ const jwt = require('jsonwebtoken')
 const Report = require('./report')
 
 const generateHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync())
-const getToken = (email) => jwt.sign({email}, process.env.JWT_SECRET)
+const getToken = ({ email, role }) => jwt.sign({email, role}, process.env.JWT_SECRET)
 
 class User extends Sequelize.Model {
 
     async validatePassword(password) {
         return await bcrypt.compare(password, this.password)
     }
+}
+
+User.ROLES = {
+    ADMIN: 'admin',
+    ENGINEER: 'engineer',
+    USER: 'user'
 }
 
 User.init({
@@ -42,7 +48,7 @@ User.init({
     role: {
         type: Sequelize.STRING,
         allowNull: false,
-        isIn: [['admin', 'user']]
+        isIn: [Object.values(User.ROLES)]
     },
     token: {
         type: Sequelize.STRING,
@@ -54,7 +60,7 @@ User.init({
     hooks: {
         beforeValidate: (user) => {
             if (user._changed.password) {
-                user.setDataValue('token', getToken(user.email))
+                user.setDataValue('token', getToken(user))
             }
         },
     },

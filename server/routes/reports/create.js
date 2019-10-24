@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 
-const { Report } = require('../models')
+const { Report } = require('../../models')
 
 module.exports = async (req, res, next) => {
     try {

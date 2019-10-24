@@ -28,7 +28,7 @@ services:
       - ./client/src:/client/src
     environment:
       - PORT=${CLIENT_PORT}
-      - REACT_APP_ENDPOINT=localhost:${SERVER_PORT}
+      - REACT_APP_ENDPOINT=http://localhost:${SERVER_PORT}
       - NODE_ENV=development
     expose:
       - ${CLIENT_PORT}

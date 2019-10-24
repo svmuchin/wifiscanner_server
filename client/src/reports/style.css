@@ -1,0 +1,9 @@
+.signal-field {
+    width: 100%;
+    min-width: 64px;
+}
+
+.signal-bar {
+    height: 16px;
+    border-radius: 8px;
+}

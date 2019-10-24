@@ -1,16 +1,24 @@
 const express = require('express')
+const cors = require('cors')
 const path = require('path')
 const fs = require('fs')
 const createError = require('http-errors')
 
-const { list, signUp, sendReport } = require('./routes')
-const { https, auth, isAdmin, isUser, isAnonymous } = require('./filters')
+const { signIn, usersGet, usersCreate, reportsGet, reportsCreate } = require('./routes')
+const { https, auth, isAdmin, isEngineer, isUser, isAnonymous } = require('./filters')
 const { onStart } = require('./hooks')
 
-const port = process.env.PORT || 80
+const isDevelopment = process.env.NODE_ENV === 'development'
+const port = process.env.PORT
 
 const app = express()
 
+if (isDevelopment) {
+    app.use(cors({
+        origin: 'http://localhost',
+        exposedHeaders: ['X-Total-Count']
+    }))
+}
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(https)
@@ -18,9 +26,13 @@ app.use(express.static(path.join(__dirname, '../client/build')))
 
 app.use(auth)
 
-app.get('/list', isAdmin, list)
-app.post('/sign-up', isAnonymous, signUp)
-app.post('/send-report', isUser, sendReport)
+app.post('/sign-in', isAnonymous, signIn)
+
+app.get('/users', isAdmin, usersGet)
+app.post('/users', isAdmin, usersCreate)
+app.get('/reports', isEngineer, reportsGet)
+app.get('/reports/:id', isEngineer, reportsGet)
+app.post('/reports', isUser, reportsCreate)
 
 app.use((req, res, next) => {
     next(createError(404))
