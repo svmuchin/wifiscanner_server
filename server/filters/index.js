@@ -1,13 +1,13 @@
 const https = require('./https')
 const auth = require('./auth')
-const isAdmin = require('./is-admin')
-const isUser = require('./is-user')
 const isAnonymous = require('./is-anonymous')
+const { isAdmin, isEngineer, isUser } = require('./roles')
 
 module.exports = {
     https,
     auth,
     isAdmin,
+    isEngineer,
     isUser,
     isAnonymous
 }
