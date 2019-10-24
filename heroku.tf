@@ -4,6 +4,7 @@ provider "heroku" {
 
 variable "port" {}
 variable "app_name" {}
+variable "load_test_size" {}
 variable "jwt_secret" {}
 variable "admin_email" {}
 variable "admin_default_passport" {}
@@ -13,6 +14,7 @@ resource "heroku_config" "env" {
     NPM_CONFIG_PRODUCTION = true
     REACT_APP_ENDPOINT = "https://${heroku_app.server.name}.herokuapp.com"
     PORT = "${var.port}"
+    LOAD_TEST_SIZE = "${var.load_test_size}"
     JWT_SECRET = "${var.jwt_secret}"
     ADMIN_EMAIL = "${var.admin_email}"
     ADMIN_DEFAULT_PASSWORD = "${var.admin_default_passport}"
