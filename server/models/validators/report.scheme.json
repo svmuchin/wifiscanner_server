@@ -1,15 +1,67 @@
 {
-  "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "required": [
-    "name"
+    "accessPoints",
+    "created",
+    "device",
+    "id"
   ],
   "properties": {
-    "name": {
-      "$id": "#/properties/name",
-      "type": "string",
-      "pattern": "^(.*)$"
+    "accessPoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "BSSID",
+          "RSSI",
+          "SSID",
+          "channel"
+        ],
+        "properties": {
+          "BSSID": {
+            "type": "string"
+          },
+          "RSSI": {
+            "type": "integer"
+          },
+          "SSID": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "created": {
+      "type": "integer"
+    },
+    "device": {
+      "type": "object",
+      "required": [
+        "ip",
+        "mac",
+        "model",
+        "softVersion"
+      ],
+      "properties": {
+        "ip": {
+          "type": "string"
+        },
+        "mac": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "softVersion": {
+          "type": "string"
+        }
+      }
+    },
+    "id": {
+      "type": "string"
     }
   }
 }

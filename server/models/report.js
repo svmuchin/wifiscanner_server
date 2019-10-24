@@ -20,10 +20,9 @@ Report.init({
     data: {
         type: Sequelize.JSON,
         allowNull: false,
-        /* TODO: убрать!
         validate: {
             reportValidator
-        }*/
+        }
     },
 }, {
     sequelize: db,
