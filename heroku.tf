@@ -32,7 +32,7 @@ resource "heroku_addon" "database" {
   plan = "heroku-postgresql:hobby-dev"
 }
 
-resource "heroku_build" "defaut" {
+resource "heroku_build" "default" {
   app = "${heroku_app.server.name}"
   buildpacks = ["https://github.com/heroku/heroku-buildpack-nodejs"]
 
@@ -46,7 +46,7 @@ resource "heroku_formation" "default" {
   type = "web"
   quantity = 1
   size = "free"
-  depends_on = ["heroku_build.defaut"]
+  depends_on = ["heroku_build.default"]
 }
 
 output "app_url" {
