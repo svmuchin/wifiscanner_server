@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const createError = require('http-errors')
 
-const { signIn, usersGet, usersCreate, reportsGet, reportsCreate, load } = require('./routes')
+const { signIn, usersGet, usersCreate, reportsGet, reportsCreate, loadOut, loadIn } = require('./routes')
 const { https, auth, isAdmin, isEngineer, isUser, isAnonymous } = require('./filters')
 const { onStart } = require('./hooks')
 
@@ -33,7 +33,8 @@ app.post('/users', isAdmin, usersCreate)
 app.get('/reports', isEngineer, reportsGet)
 app.get('/reports/:id', isEngineer, reportsGet)
 app.post('/reports', isUser, reportsCreate)
-app.get('/load', isUser, load)
+app.get('/load/out', isUser, loadOut)
+app.post('/load/in', isUser, loadIn)
 
 app.use((req, res, next) => {
     next(createError(404))

@@ -1,7 +1,7 @@
 const { reportsGet, reportsCreate } = require('./reports')
 const { usersGet, usersCreate } = require('./users')
+const { loadOut, loadIn } = require('./load')
 const signIn = require('./sign-in')
-const load = require('./load')
 
 module.exports = {
     signIn,
@@ -9,5 +9,6 @@ module.exports = {
     reportsCreate,
     usersCreate,
     usersGet,
-    load
+    loadOut,
+    loadIn
 }

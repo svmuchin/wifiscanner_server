@@ -1,5 +1,5 @@
 port = 80
-load_test_size = 10485760 # 10 Mb
+load_test_size = 20485760 # 20 Mb
 app_name = "wifi-scanner-server"
 jwt_secret = "VQLGH4chKhjl5pTFqw4v"
 admin_email = "mail@mail.com"
