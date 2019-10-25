@@ -9,7 +9,7 @@ module.exports = async () => {
             email: process.env.ADMIN_EMAIL,
             password: process.env.ADMIN_DEFAULT_PASSWORD,
             role: 'admin',
-            name: 'Administrator'
+            name: 'Администратор'
         })
     }
 }
