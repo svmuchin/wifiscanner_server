@@ -1,7 +1,7 @@
 const { Report } = require('../../models')
 
 module.exports = async (req, res) => {
-    const { _start, _end, _sort, _order } = req.query
+    const { _start, _end, _sort, _order, userId } = req.query
     const { id : pk } = req.params
 
     if (pk) {
@@ -9,14 +9,19 @@ module.exports = async (req, res) => {
         return res.send(report)
     }
 
+    const request = { attributes: ['id', 'data', 'userId', 'createdAt'] }
+    if (userId) {
+        request.where = { userId }
+    }
+    if (_start && _end) {
+        request.offset =_start
+        request.limit = _end - _start
+    }
+    if (_sort && _order) {
+        request.order = [[_sort, _order]]
+    }
+
     const count = await Report.count()
-    const reports = await Report.findAll({
-        attributes: ['id', 'data', 'userId', 'createdAt'],
-        order: [
-            [_sort, _order],
-        ],
-        offset: _start,
-        limit: _end - _start
-    })
+    const reports = await Report.findAll(request)
     res.header('X-Total-Count', count).send(reports)
 }
