@@ -31,7 +31,7 @@
     "pg": "^6.4.2",
     "pg-hstore": "^2.3.3",
     "random-bytes-readable-stream": "^2.1.0",
-    "sequelize": "^5.19.0"
+    "sequelize": "^6.28.2"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"
